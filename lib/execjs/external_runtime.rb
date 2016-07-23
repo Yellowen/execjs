@@ -210,12 +210,11 @@ module ExecJS
       else
         def exec_runtime(filename)
           io = IO.popen(binary.split(' ') << filename, @popen_options.merge({err: [:child, :out]}))
-          p "--"*10
-          p(binary.split(' ') << filename)
-          p "--"*10
           output = io.read
           io.close
-
+           p "--"*10
+          p [$?, output]
+          p "--"*10
           if $?.success?
             output
           else
